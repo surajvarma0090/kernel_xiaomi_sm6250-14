@@ -35,11 +35,12 @@ jobs:
         export SUBARCH=arm64
         export PATH="$PWD/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PWD/prebuilts/clang/host/linux-x86/clang-r498229b/bin:$PATH"
         export KBUILD_COMPILER_STRING="clang version $(clang --version | head -n 1 | cut -d ' ' -f 4)"
+        export CLANG_TRIPLE="aarch64-linux-gnu-"
 
     - name: Build Kernel
       run: |
         make O=out ARCH=arm64 vendor/xiaomi/miatoll_defconfig
-        make -j$(nproc --all) O=out ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi-
+        make -j$(nproc --all) O=out ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi- CLANG_TRIPLE=aarch64-linux-gnu-
 
     - name: Create flashable zip
       run: |
