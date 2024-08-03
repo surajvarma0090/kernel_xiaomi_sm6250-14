@@ -47,14 +47,13 @@ jobs:
       run: |
         mkdir -p toolchains
         cd toolchains
-        # Replace with the correct URL and filename
-        wget https://<new_url_to_toolchain>.tar.gz
-        tar -xvf <toolchain_filename>.tar.gz
+        wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r530567.tar.gz
+        tar -xvf clang-r530567.tar.gz
         cd ..
 
     - name: Build Kernel
       run: |
-        export PATH="$PWD/toolchains/<toolchain_directory>/bin:$PATH"
+        export PATH="$PWD/toolchains/clang-r530567/bin:$PATH"
         make O=out ARCH=arm64 vendor/xiaomi/miatoll_defconfig
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi- CLANG_TRIPLE=aarch64-linux-gnu-
 
