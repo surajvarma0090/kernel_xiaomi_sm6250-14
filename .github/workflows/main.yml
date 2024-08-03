@@ -38,7 +38,7 @@ jobs:
 
     - name: Build Kernel
       run: |
-        make O=out ARCH=arm64 vendor/miatoll.defconfig
+        make O=out ARCH=arm64 vendor/xiaomi/miatoll_defconfig
         make -j$(nproc --all) O=out ARCH=arm64 CC=clang CROSS_COMPILE=aarch64-linux-android- CROSS_COMPILE_ARM32=arm-linux-androideabi-
 
     - name: Create flashable zip
