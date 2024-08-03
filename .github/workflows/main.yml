@@ -20,6 +20,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y bc bison build-essential ccache curl flex git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev openjdk-8-jdk repo python3
+        sudo apt-get install -y python-is-python3
 
     - name: Clone GCC
       run: |
@@ -36,6 +37,12 @@ jobs:
         export PATH="$PWD/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PWD/prebuilts/clang/host/linux-x86/clang-r498229b/bin:$PATH"
         export KBUILD_COMPILER_STRING="clang version $(clang --version | head -n 1 | cut -d ' ' -f 4)"
         export CLANG_TRIPLE="aarch64-linux-gnu-"
+        echo "ARCH=$ARCH"
+        echo "SUBARCH=$SUBARCH"
+        echo "PATH=$PATH"
+        echo "KBUILD_COMPILER_STRING=$KBUILD_COMPILER_STRING"
+        echo "CLANG_TRIPLE=$CLANG_TRIPLE"
+        clang --version
 
     - name: Build Kernel
       run: |
